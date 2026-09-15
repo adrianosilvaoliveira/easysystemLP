@@ -12,4 +12,3 @@ export { plans, planFeatureRows, addons } from "./plans";
 export { faq } from "./faq";
 export { segments } from "./segments";
 export { storyBeats } from "./story";
-export { contactChannels } from "./contact";

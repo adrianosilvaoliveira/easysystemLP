@@ -3,7 +3,6 @@ import { Container } from "@/components/brand/Container";
 import { Eyebrow } from "@/components/brand/Eyebrow";
 import { DemoForm } from "@/components/forms/DemoForm";
 import { Reveal } from "@/components/motion/Reveal";
-import { contactChannels } from "@/content/contact";
 
 export function Contact() {
   return (
@@ -22,24 +21,6 @@ export function Contact() {
               <Button href="#planos" variant="ghost-dark">
                 Ver planos e preços
               </Button>
-            </div>
-            <div className="mt-10 rounded-md border border-white/16 bg-white/6 px-[22px] py-2 backdrop-blur-sm">
-              {contactChannels.map((channel) => (
-                <div
-                  key={channel.label}
-                  className="flex justify-between gap-3 border-b border-dashed border-white/20 py-[15px] text-sm last:border-b-0"
-                >
-                  <span className="text-[#93A0B8]">{channel.label}</span>
-                  <a
-                    href={channel.href}
-                    className="font-display font-bold text-white no-underline hover:text-accent-pink"
-                    target={channel.external ? "_blank" : undefined}
-                    rel={channel.external ? "noopener noreferrer" : undefined}
-                  >
-                    {channel.value}
-                  </a>
-                </div>
-              ))}
             </div>
           </Reveal>
           <Reveal delay={0.1}>

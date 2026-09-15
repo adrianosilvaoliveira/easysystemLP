@@ -12,13 +12,6 @@ export interface NavItem {
   label: string;
 }
 
-export interface ContactChannel {
-  label: string;
-  value: string;
-  href: string;
-  external?: boolean;
-}
-
 export interface SiteConfig {
   name: string;
   product: string;
