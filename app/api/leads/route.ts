@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { dispatchLead, isLeadDestinationConfigured } from "@/lib/dispatch-lead";
+import { dispatchLead, isLeadDestinationConfigured, leadDestinationStatus } from "@/lib/dispatch-lead";
 import { buildLeadPayload, parseLeadInput, validateLead } from "@/lib/leads";
 
 const WINDOW_MS = 10 * 60 * 1000;
@@ -22,6 +22,13 @@ function rateLimited(ip: string) {
   recent.push(now);
   hits.set(ip, recent);
   return false;
+}
+
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    ...leadDestinationStatus(),
+  });
 }
 
 export async function POST(request: Request) {
