@@ -105,34 +105,22 @@ export function DemoForm() {
           />
         </label>
 
-        <div className="grid gap-1.5">
+        <label className="grid gap-1.5">
           <span className="font-display text-[12.5px] font-bold tracking-[0.04em] text-heading uppercase">
             WhatsApp
           </span>
-          <div className="flex gap-2">
-            <span
-              className="inline-flex h-[50px] shrink-0 items-center justify-center whitespace-nowrap rounded-[10px] border-[1.5px] border-border bg-surface-alt px-3 font-display text-[13.5px] font-bold text-heading"
-              aria-hidden="true"
-            >
-              BR +55
-            </span>
-            <label className="sr-only" htmlFor="whatsapp">
-              WhatsApp com DDD
-            </label>
-            <input
-              id="whatsapp"
-              className={fieldClass}
-              name="whatsapp"
-              type="tel"
-              inputMode="numeric"
-              autoComplete="tel-national"
-              value={whatsapp}
-              onChange={(event) => setWhatsapp(formatNationalPhone(event.target.value))}
-              placeholder="(67) 99999-9999"
-              required
-            />
-          </div>
-        </div>
+          <input
+            className={fieldClass}
+            name="whatsapp"
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel-national"
+            value={whatsapp}
+            onChange={(event) => setWhatsapp(formatNationalPhone(event.target.value))}
+            placeholder="(67) 99999-9999"
+            required
+          />
+        </label>
 
         <div className="sr-only" aria-hidden="true">
           <label>
