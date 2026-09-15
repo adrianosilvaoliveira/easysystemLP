@@ -69,7 +69,7 @@ export function DemoForm() {
     >
       <p className="font-display text-[1.15rem] font-extrabold">Solicitar demonstração</p>
       <p className="mt-1.5 text-sm leading-relaxed text-text-secondary">
-        Brasil (+55) já selecionado. Preencha os três campos e um consultor fala com você.
+        Preencha os três campos e um consultor fala com você.
       </p>
 
       <div className="mt-5 grid gap-3.5">
