@@ -295,7 +295,7 @@ async function dispatchPipedrive(payload: LeadPayload): Promise<DispatchResult> 
     }
 
     const dealId = await createDeal({
-      title: payload.empresa,
+      title: payload.origem === "ads-control" ? `[Ads] ${payload.empresa}` : payload.empresa,
       currency: process.env.PIPEDRIVE_DEAL_CURRENCY?.trim() || "BRL",
       ...(personId ? { person_id: personId } : {}),
       ...(orgId ? { org_id: orgId } : {}),

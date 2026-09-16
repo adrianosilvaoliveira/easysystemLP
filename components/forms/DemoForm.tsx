@@ -3,12 +3,18 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { cn } from "cn";
-import { formatNationalPhone } from "@/lib/leads";
+import { formatNationalPhone, type LeadOrigem, type LeadUtm } from "@/lib/leads";
 
 const fieldClass =
   "w-full rounded-[10px] border-[1.5px] border-border bg-white px-3.5 py-[13px] font-sans text-[15.5px] text-heading outline-none transition-[border-color,box-shadow] placeholder:text-text-tertiary focus:border-brand focus:shadow-[0_0_0_3px_rgba(231,25,98,0.16)]";
 
-export function DemoForm() {
+interface DemoFormProps {
+  origem?: LeadOrigem;
+  utm?: LeadUtm;
+  showIntro?: boolean;
+}
+
+export function DemoForm({ origem = "site-control", utm, showIntro = true }: DemoFormProps) {
   const [nome, setNome] = useState("");
   const [empresa, setEmpresa] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -26,7 +32,7 @@ export function DemoForm() {
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, empresa, whatsapp, website }),
+        body: JSON.stringify({ nome, empresa, whatsapp, website, origem, ...utm }),
       });
       const data = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !data.ok) {
@@ -67,12 +73,16 @@ export function DemoForm() {
       className="relative rounded-[14px] border border-white/16 bg-white px-5 py-6 text-heading shadow-[0_24px_50px_-28px_rgba(11,31,58,0.55)] sm:px-6 sm:py-7"
       noValidate
     >
-      <p className="font-display text-[1.15rem] font-extrabold">Solicitar demonstração</p>
-      <p className="mt-1.5 text-sm leading-relaxed text-text-secondary">
-        Preencha os três campos e um consultor fala com você.
-      </p>
+      {showIntro ? (
+        <>
+          <p className="font-display text-[1.15rem] font-extrabold">Solicitar demonstração</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-text-secondary">
+            Preencha os três campos e um consultor fala com você.
+          </p>
+        </>
+      ) : null}
 
-      <div className="mt-5 grid gap-3.5">
+      <div className={showIntro ? "mt-5 grid gap-3.5" : "grid gap-3.5"}>
         <label className="grid gap-1.5">
           <span className="font-display text-[12.5px] font-bold tracking-[0.04em] text-heading uppercase">
             Nome

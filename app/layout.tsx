@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Manrope, Source_Sans_3 } from "next/font/google";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { site } from "@/content/site";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ScrollReset } from "@/components/layout/ScrollReset";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -40,9 +42,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.company, url: site.url }],
   creator: site.company,
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -66,9 +65,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${manrope.variable} ${sourceSans.variable} h-full scroll-smooth antialiased`}
+      className={`${manrope.variable} ${sourceSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-text">
+        <Script id="reset-initial-scroll" src="/reset-scroll.js" strategy="beforeInteractive" />
+        <ScrollReset />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>

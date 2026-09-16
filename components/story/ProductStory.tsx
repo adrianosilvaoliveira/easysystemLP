@@ -101,6 +101,7 @@ export function ProductStory() {
 
   useGSAP(
     () => {
+      ScrollTrigger.clearScrollMemory("manual");
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {

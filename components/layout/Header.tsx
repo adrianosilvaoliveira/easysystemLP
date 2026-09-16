@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sheet";
 import { navItems } from "@/content/nav";
 import { site } from "@/content/site";
+import { handleInPageHashClick } from "@/lib/in-page-nav";
 
 export function Header() {
   const [solid, setSolid] = useState(false);
@@ -53,6 +54,7 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
+              onClick={(event) => handleInPageHashClick(event, item.href)}
               className={cn(
                 "no-underline transition-colors duration-300",
                 solid ? "text-text-secondary hover:text-heading" : "text-white/75 hover:text-white",
@@ -104,7 +106,10 @@ export function Header() {
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setOpen(false)}
+                    onClick={(event) => {
+                      handleInPageHashClick(event, item.href);
+                      setOpen(false);
+                    }}
                     className="flex min-h-11 items-center justify-between border-b border-border py-[19px] font-display text-[1.08rem] font-bold text-heading no-underline"
                   >
                     {item.label}

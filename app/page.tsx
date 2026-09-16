@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -14,6 +15,12 @@ import { Proof } from "@/components/sections/Proof";
 import { Plans } from "@/components/sections/Plans";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (

@@ -1,19 +1,31 @@
+export const leadOrigins = ["site-control", "ads-control"] as const;
+
+export type LeadOrigem = (typeof leadOrigins)[number];
+
+export type LeadUtm = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+};
+
 export type LeadInput = {
   nome: string;
   whatsapp: string;
   empresa: string;
   website?: string;
-};
+  origem?: LeadOrigem;
+} & LeadUtm;
 
 export type LeadPayload = {
   event: "demo_request";
-  origem: "site-control";
+  origem: LeadOrigem;
   nome: string;
   whatsapp: string;
   whatsapp_exibicao: string;
   empresa: string;
   enviado_em: string;
-};
+} & LeadUtm;
 
 const MAX_NAME = 120;
 const MAX_COMPANY = 160;
@@ -55,6 +67,15 @@ function cleanText(value: unknown, max: number) {
   return value.replace(/\s+/g, " ").trim().slice(0, max);
 }
 
+function cleanUtm(value: unknown) {
+  const text = cleanText(value, 80);
+  return text || undefined;
+}
+
+function parseOrigem(value: unknown): LeadOrigem {
+  return value === "ads-control" ? "ads-control" : "site-control";
+}
+
 export function parseLeadInput(body: unknown): LeadInput {
   if (!body || typeof body !== "object") {
     return { nome: "", whatsapp: "", empresa: "" };
@@ -66,6 +87,11 @@ export function parseLeadInput(body: unknown): LeadInput {
     whatsapp: cleanText(data.whatsapp, 40),
     empresa: cleanText(data.empresa, MAX_COMPANY),
     website: typeof data.website === "string" ? data.website.trim() : "",
+    origem: parseOrigem(data.origem),
+    utm_source: cleanUtm(data.utm_source),
+    utm_medium: cleanUtm(data.utm_medium),
+    utm_campaign: cleanUtm(data.utm_campaign),
+    utm_content: cleanUtm(data.utm_content),
   };
 }
 
@@ -93,11 +119,15 @@ export function validateLead(input: LeadInput) {
 export function buildLeadPayload(input: LeadInput, whatsapp: string): LeadPayload {
   return {
     event: "demo_request",
-    origem: "site-control",
+    origem: input.origem === "ads-control" ? "ads-control" : "site-control",
     nome: input.nome,
     whatsapp,
     whatsapp_exibicao: formatNationalPhone(whatsapp),
     empresa: input.empresa,
     enviado_em: new Date().toISOString(),
+    ...(input.utm_source ? { utm_source: input.utm_source } : {}),
+    ...(input.utm_medium ? { utm_medium: input.utm_medium } : {}),
+    ...(input.utm_campaign ? { utm_campaign: input.utm_campaign } : {}),
+    ...(input.utm_content ? { utm_content: input.utm_content } : {}),
   };
 }

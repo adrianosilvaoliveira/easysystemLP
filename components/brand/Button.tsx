@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "cn";
+import { handleInPageHashClick, isInPageHash } from "@/lib/in-page-nav";
 import type { Cta, CtaVariant } from "@/content/types";
 
 const variantClass: Record<CtaVariant, string> = {
@@ -55,10 +58,18 @@ export function Button({
   }
 
   const isAbsolute = href.startsWith("http://") || href.startsWith("https://");
+  const isHash = isInPageHash(href);
 
-  if (isAbsolute) {
+  if (isAbsolute || isHash) {
     return (
-      <a href={href} className={classes} onClick={onClick}>
+      <a
+        href={href}
+        className={classes}
+        onClick={(event) => {
+          handleInPageHashClick(event, href);
+          onClick?.(event);
+        }}
+      >
         {children}
       </a>
     );
