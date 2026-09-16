@@ -1,4 +1,4 @@
-export const leadOrigins = ["site-control", "ads-control"] as const;
+export const leadOrigins = ["site-control", "formulario"] as const;
 
 export type LeadOrigem = (typeof leadOrigins)[number];
 
@@ -73,7 +73,7 @@ function cleanUtm(value: unknown) {
 }
 
 function parseOrigem(value: unknown): LeadOrigem {
-  return value === "ads-control" ? "ads-control" : "site-control";
+  return value === "formulario" || value === "ads-control" ? "formulario" : "site-control";
 }
 
 export function parseLeadInput(body: unknown): LeadInput {
@@ -119,7 +119,7 @@ export function validateLead(input: LeadInput) {
 export function buildLeadPayload(input: LeadInput, whatsapp: string): LeadPayload {
   return {
     event: "demo_request",
-    origem: input.origem === "ads-control" ? "ads-control" : "site-control",
+    origem: input.origem === "formulario" ? "formulario" : "site-control",
     nome: input.nome,
     whatsapp,
     whatsapp_exibicao: formatNationalPhone(whatsapp),

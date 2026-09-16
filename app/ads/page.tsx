@@ -48,7 +48,7 @@ export default async function AdsPage({ searchParams }: { searchParams: SearchPa
           {adsPage.brand}
         </p>
         <h1 className="sr-only">{adsPage.title}</h1>
-        <DemoForm origem="ads-control" utm={utm} showIntro={false} />
+        <DemoForm origem="formulario" utm={utm} showIntro={false} />
       </div>
     </main>
   );
