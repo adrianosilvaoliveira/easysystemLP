@@ -44,7 +44,7 @@ export default async function AdsPage({ searchParams }: { searchParams: SearchPa
   return (
     <main id="top" className="flex min-h-full flex-1 flex-col bg-navy-gradient text-white">
       <div className="mx-auto flex w-full max-w-[440px] flex-1 flex-col justify-center px-4 py-10 sm:px-5">
-        <p className="mb-8 text-center font-display text-[19px] font-extrabold text-white">
+        <p className="mb-8 text-center font-display text-[48px] font-extrabold text-white">
           {adsPage.brand}
         </p>
         <h1 className="sr-only">{adsPage.title}</h1>
